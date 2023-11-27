@@ -1,0 +1,205 @@
+/*!
+ * SPDX-FileCopyrightText: © 2023 Siemens AG
+ * SPDX-License-Identifier: MIT
+ */
+
+ .control-card-header-avatar {
+    background-image: url("../../assets/images/light-switch-avatar.jpg");
+    background-size: cover;
+}
+
+.control-card-title-icon {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.control-time-overlay {
+    color: white;
+    background-color: rgba(0, 0, 0, .5);
+    position: absolute;
+    top: 72px !important;
+    left: 16px;
+    padding: 4px;
+}
+
+.control-form-field {
+    margin-right: 16px;
+}
+
+.control-context-qrcode-field {
+    display: inline-block;
+    position: relative;
+}
+
+.control-context-qrcode-label {
+    margin-right: 12px;
+    color: rgba(0, 0, 0, .54);
+    font-size: 14px;
+    font-weight: 400;
+    display: inline-block;
+    transform: translateY(-1.28125em) scale(.75) perspective(100px) translateZ(.001px);
+}
+
+.control-context-qrcode {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.control-context-qrcode-button {
+    cursor: pointer;
+    position: absolute !important;
+    left: 10px;
+    bottom: -4px;
+}
+
+.control-operation-params {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.control-operation-param {
+    display: flex;
+    align-items: center;
+    flex: 1 0 auto;
+    margin-right: 48px;
+    margin-bottom: 16px;
+
+    &.control-operation-param-no-grow {
+        flex: 0 0 auto;
+    }
+}
+
+.control-operation-param-label {
+    align-self: center;
+    display: flex;
+    align-items: center;
+}
+
+.control-color-slider {
+    background-origin: content-box;
+    background-clip: content-box;
+    background-position-y: center;
+    background-size: 100% 40%;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(to right,
+            rgb(255, 0, 0),
+            rgb(255, 255, 0),
+            rgb(0, 255, 0),
+            rgb(0, 255, 255),
+            rgb(0, 0, 255),
+            rgb(255, 0, 255),
+            rgb(255, 0, 0));
+
+    .mdc-slider__thumb-knob {
+        display: none !important
+    }
+
+    .mdc-slider__track {
+        display: none !important;
+    }
+
+    .mdc-slider__value-indicator-container {
+        width: 32px !important;
+
+        .mdc-slider__value-indicator {
+            opacity: 1 !important;
+
+            // Modified dynamically by function updateColorSliderThumb.
+            background-color: transparent;
+        }
+    }
+
+    .mat-mdc-slider .mdc-slider__value-indicator::before {
+        // Modified dynamically by function updateColorSliderThumb.
+        border-top-color: var(--label-color) !important;
+    }
+}
+
+.control-operation-param-color .mat-button-toggle-group {
+    overflow: visible !important;
+    height: 20px;
+}
+
+.control-operation-param-color .mat-button-toggle {
+    overflow: hidden !important;
+    width: 20px;
+    height: 20px;
+    border-left: 2px solid rgba(0, 0, 0, 0.12);
+    border: 2px solid rgba(0, 0, 0, 0.12);
+}
+
+.control-operation-param-time-switch-group {
+    margin-left: 8px;
+}
+
+.control-operation-request {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 8px;
+    margin-bottom: 24px;
+
+    >* {
+        margin-right: 16px !important;
+    }
+}
+
+.control-action-log-list {
+    padding-top: 0 !important;
+    overflow-y: auto;
+    max-height: 250px;
+}
+
+.control-action-log-list-item {
+    height: auto !important;
+}
+
+.control-action-log-list-item-alternate {
+    background-color: #ECEFF1 !important;
+}
+
+.control-action-log-warn {
+    color: #f44336 !important;
+}
+
+.control-action-log-icon {
+    margin-top: 2px !important;
+    margin-right: 8px !important;
+    margin-left: 16px !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+}
+
+.control-action-log-result-icon {
+    align-self: center !important;
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 16px !important;
+}
+
+.control-action-log-heading {
+    text-overflow: initial !important;
+}
+
+.control-action-log-heading-with-results {
+    margin-top: -14px !important;
+    margin-bottom: -40px !important;
+}
+
+.control-action-log-code {
+    margin-left: 16px;
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.control-action-log-result-list-item {
+    display: flex;
+    align-items: center;
+    height: 24px !important;
+}
+
+.control-card-link {
+    color: inherit;
+}

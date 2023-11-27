@@ -1,0 +1,75 @@
+{
+    "name": "light-control",
+    "version": "1.0.0",
+    "description": "Light Control Web App for DDA",
+    "homepage": "https://github.com/coatyio/dda-examples",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/coatyio/dda-examples"
+    },
+    "readme": "README.md",
+    "scripts": {
+        "ng": "ng",
+        "start": "ng serve",
+        "start:https": "ng serve --ssl true",
+        "build": "ng build",
+        "watch": "ng build --watch --configuration development",
+        "test": "ng test"
+    },
+    "private": true,
+    "keywords": [
+        "light",
+        "control",
+        "app",
+        "DDA",
+        "data",
+        "distribution",
+        "agent",
+        "example",
+        "javascript",
+        "typescript",
+        "angular"
+    ],
+    "author": "Siemens AG",
+    "license": "MIT",
+    "maintainers": [
+        {
+            "name": "Hubertus Hohl",
+            "email": "hubertus.hohl@siemens.com"
+        }
+    ],
+    "dependencies": {
+        "@angular/animations": "^16.2.8",
+        "@angular/cdk": "^16.2.7",
+        "@angular/common": "^16.2.8",
+        "@angular/compiler": "^16.2.8",
+        "@angular/core": "^16.2.8",
+        "@angular/forms": "^16.2.8",
+        "@angular/material": "^16.2.7",
+        "@angular/platform-browser": "^16.2.8",
+        "@angular/platform-browser-dynamic": "^16.2.8",
+        "@angular/router": "^16.2.8",
+        "angularx-qrcode": "16.0.1",
+        "google-protobuf": "^3.21.2",
+        "grpc-web": "^1.4.2",
+        "rxjs": "~7.8.1",
+        "tslib": "^2.6.2",
+        "uuid": "^9.0.1",
+        "zone.js": "~0.13.0"
+    },
+    "devDependencies": {
+        "@angular-devkit/build-angular": "^16.2.5",
+        "@angular/cli": "~16.2.5",
+        "@angular/compiler-cli": "^16.2.8",
+        "@types/google-protobuf": "^3.15.10",
+        "@types/jasmine": "~4.3.0",
+        "@types/uuid": "^9.0.5",
+        "jasmine-core": "~4.6.0",
+        "karma": "~6.4.2",
+        "karma-chrome-launcher": "~3.2.0",
+        "karma-coverage": "~2.2.1",
+        "karma-jasmine": "~5.1.0",
+        "karma-jasmine-html-reporter": "~2.1.0",
+        "typescript": "~5.1.3"
+    }
+}

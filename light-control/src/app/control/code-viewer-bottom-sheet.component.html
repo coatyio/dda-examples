@@ -1,0 +1,27 @@
+<!--
+    SPDX-FileCopyrightText: © 2023 Siemens AG
+    SPDX-License-Identifier: MIT
+-->
+
+<mat-toolbar class="code-toolbar">
+    <span class="code-header">
+        <code>Published Action Details</code>
+    </span>
+    <span class="app-space-filler"></span>
+    <button mat-icon-button class="code-toolbar-button" (click)="close($event)" matTooltip="Close">
+        <mat-icon aria-hidden="false" aria-label="Close">close
+        </mat-icon>
+    </button>
+</mat-toolbar>
+
+<pre class="code-key">&nbsp;&nbsp;Type:&nbsp;<code class="code-value">{{data.operation}}</code>
+</pre>
+
+<pre class="code-key">&nbsp;&nbsp;&nbsp;&nbsp;Id:&nbsp;<code class="code-value">{{data.operationId}}</code>
+</pre>
+
+<pre class="code-key">Source:&nbsp;<code class="code-value">{{data.operationSource}}</code>
+</pre>
+
+<pre class="code-key">Params: (JSON)</pre>
+<pre class="code-value">{{data.operationParameters}}</pre>

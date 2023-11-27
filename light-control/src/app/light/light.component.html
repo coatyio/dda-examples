@@ -1,0 +1,75 @@
+<!--
+    SPDX-FileCopyrightText: © 2023 Siemens AG
+    SPDX-License-Identifier: MIT
+-->
+
+<mat-card class="app-card light-card-dark">
+    <mat-card-header>
+        <a mat-card-avatar class="light-card-header-avatar"></a>
+        <mat-card-title class="app-text-with-ellipsis">{{appContext.context$ | async}}
+        </mat-card-title>
+        <mat-card-subtitle class="light-card-subtitle-dark">Building {{lightContext?.building}}
+            &sdot;
+            Floor {{lightContext?.floor}}
+            &sdot;
+            Room {{lightContext?.room}}
+        </mat-card-subtitle>
+        <mat-icon class="light-card-title-icon" *ngIf="connectionInfo"
+            [matTooltip]="'DDA gRPC-Web endpoint @ ' + connectionInfo">
+            wifi
+        </mat-icon>
+    </mat-card-header>
+    <img mat-card-image *ngIf="lightColor$ | async as color; else initializing"
+        class="app-map-card-image-centered light-card-image-mask"
+        src="./assets/images/light-bulb-mask.png"
+        [style.background-color]="light!.isDefect ? 'transparent' : color"
+        alt="Photo of a light bulb">
+    <ng-template #initializing>
+        <mat-card-content>Initializing...</mat-card-content>
+    </ng-template>
+    <mat-card-content class="light-card-content" *ngIf="light">
+        <div class="light-operation-param">
+            <mat-slide-toggle [color]="'warn'" [(ngModel)]="light.isDefect"
+                aria-label="light defect switch">
+                Defect
+            </mat-slide-toggle>
+        </div>
+        <qrcode draggable="true" (dragstart)="onQrCodeDrag($event, qrCodeTooltip)"
+            (click)="onQrCodeClick($event)" #qrCodeTooltip="matTooltip"
+            matTooltip="Click or scan or drag QR Code onto context filter to switch this light"
+            matTooltipPosition="above" [title]="''" class="light-map-card-image-qrcode"
+            [qrdata]="qrCodeUrl!" [elementType]="'svg'" [errorCorrectionLevel]="'M'"
+            [width]="getQrCodeWidth()" [margin]="0" [cssClass]="'light-map-card-image-qrcode-div'">
+        </qrcode>
+        <h4 class="app-heading-with-top-bottom-margin">CONTEXT</h4>
+        <div class="light-card-context">
+            <div class="light-card-slider-label">Building</div>
+            <mat-slider [min]="lightContextRanges!.building.min"
+                [max]="lightContextRanges!.building.max" [showTickMarks]="true" [step]="1"
+                [discrete]="true">
+                <input matSliderThumb [(ngModel)]="lightContext!.building">
+            </mat-slider>
+        </div>
+        <div class="light-card-context">
+            <div class="light-card-slider-label">Floor</div>
+            <mat-slider [min]="lightContextRanges!.floor.min" [max]="lightContextRanges!.floor.max"
+                [showTickMarks]="true" [step]="1" [discrete]="true" disableRipple>
+                <input matSliderThumb [(ngModel)]="lightContext!.floor">
+            </mat-slider>
+        </div>
+        <div class="light-card-context">
+            <div class="light-card-slider-label">Room</div>
+            <mat-slider [min]="lightContextRanges!.room.min" [max]="lightContextRanges!.room.max"
+                [showTickMarks]="true" [step]="1" [discrete]="true">
+                <input matSliderThumb [(ngModel)]="lightContext!.room">
+            </mat-slider>
+        </div>
+    </mat-card-content>
+    <mat-divider class="light-card-divider-dark"></mat-divider>
+    <mat-card-footer class="light-card-subtitle-dark">
+        <div *ngIf="light">Last switched: {{lastSwitched$ | async | dateNow | date:'HH:mm:ss.SSS'}}
+        </div>
+        <span><a class="light-card-link" href="https://github.com/coatyio/dda"
+                target="_blank">Powered by DDA</a></span>
+    </mat-card-footer>
+</mat-card>
