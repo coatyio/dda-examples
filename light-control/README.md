@@ -35,7 +35,7 @@ LIGHT" button in the action bar. Each light is opened in its own popup window.
 Using the sliders, you can configure a light's context, which indicates where
 the light should be physically located (i.e. building, floor, and room).
 
-> **Tip**: If your browser has popups disabled, you can launch a new light UI in
+> __TIP__: If your browser has popups disabled, you can launch a new light UI in
 > a new browser tab by clicking the "NEW LIGHT AS TAB" button in the action bar.
 
 Now, you can control a specific set of lights or individual lights in the light
@@ -48,7 +48,7 @@ control UI by
 Perform the selected action with the selected filter by clicking the "SWITCH
 LIGHTS" button.
 
-> **TIP**: To execute the action immediately whenever you change an action
+> __TIP__: To execute the action immediately whenever you change an action
 > parameter, check the checkbox next to the "SWITCH LIGHTS" button.
 
 Click the fab button "{}" to view the Action details for the currently selected
@@ -66,19 +66,19 @@ switch in the light UI or select the invalid "black" color from the color
 palette in the light control UI. In this case, only _one_ result is returned
 indicating the error.
 
-> **Tip**: You can also control an individual light by dragging the QR Code
+> __TIP__: You can also control an individual light by dragging the QR Code
 > displayed in the light UI and dropping it onto the corresponding area in the
 > context filter panel. Now, the operation context is limited to the selected
 > light. Building, floor, and room filters are disabled and ignored. To enable
 > these filters again, remove the QR Code from the context filter by clicking
 > the "clear" button.
 >
-> **Tip**: Alternatively, you can limit the context filter to a specific light
+> __TIP__: Alternatively, you can limit the context filter to a specific light
 > by clicking on the light's QR Code or by scanning the QR Code (with your
 > mobile device). On both cases, a new light control UI is opened with the
 > corresponding operation context.
 >
-> **Tip**: You can also start multiple light control UIs simultaneously to
+> __TIP__: You can also start multiple light control UIs simultaneously to
 > demonstrate a decentralized lighting control system by clicking the "NEW LIGHT
 > CONTROL" button in the action bar.
 
@@ -87,16 +87,21 @@ indicating the error.
 Make sure you have [Docker Engine](https://www.docker.com/) installed on your
 target host system.
 
-Download the directory `quick-start` from the project
+Download the light-control project from the project
 [repository](https://github.com/coatyio/dda-examples/grpc-web/light-control/tree/main/quick-start).
 
-Use `docker compose up` from within the downloaded folder to start up the light
-control application including a web app server, a DDA sidecar, and an MQTT 5
-broker. Use `docker compose down` to shut down the services.
+Use `docker compose up` from within the `quick-start` folder to start up the
+light control application including a web app server, a DDA sidecar, and an MQTT
+5 broker. Use `docker compose down` to shut down the services.
 
 Launch the web app in a browser pointed at the target host on port `8098`.
 
-> **NOTE**: To enable HTTPS over the web app's gRPC-Web connection to the DDA
+> __NOTE__: To use this example with a new DDA version released on GitHub,
+> download any updated light-control project _and_ delete the outdated local
+> Docker containers `quick-start-webserver` and `ghcr.io/coatyio/dda:latest`
+> before running `docker conmpose up` again.
+>
+> __NOTE__: To enable HTTPS over the web app's gRPC-Web connection to the DDA
 > sidecar create a valid server certificate and add its private key file and its
 > certificate file to the `quick-start` folder in PEM format. Then, reference
 > these files in the `dda.yaml` file in the `apis/cert` and `apis/key` section
