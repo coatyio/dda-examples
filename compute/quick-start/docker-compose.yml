@@ -1,0 +1,22 @@
+# SPDX-FileCopyrightText: © 2023 Siemens AG
+# SPDX-License-Identifier: MIT
+
+version: "3.7"
+
+services:
+  broker:
+    image: emqx/emqx:latest
+    ports:
+      - "1883:1883"
+      - "18083:18083"
+    restart: unless-stopped
+  dda:
+    image: ghcr.io/coatyio/dda:latest
+    ports:
+      - "8900:8900"
+    volumes:
+      - type: bind
+        source: .
+        target: /dda
+    restart: unless-stopped
+

@@ -1,0 +1,71 @@
+# SPDX-FileCopyrightText: © 2023 Siemens AG
+# SPDX-License-Identifier: MIT
+
+# https://taskfile.dev
+
+version: "3"
+
+output: interleaved
+silent: true
+
+vars:
+  COORDINATOR_GO: ./cmd/coordinator
+  WORKER_GO: ./cmd/worker
+
+tasks:
+  default:
+    - task --list
+
+  install:
+    desc: Install Go tools required to build, test, and release; install module dependencies
+    cmds:
+      - go install github.com/client9/misspell/cmd/misspell@latest # check code for misspelled English words
+      - go install honnef.co/go/tools/cmd/staticcheck@latest # lint code
+      - go install github.com/securego/gosec/v2/cmd/gosec@latest # check security of code
+      - go mod download # install module dependencies
+      - go mod verify # verify downloaded module dependencies
+
+  deps:
+    desc: Update module dependencies to latest version
+    cmds:
+      - go get -u all
+      - go mod tidy
+
+  lint:
+    desc: Run misspell, staticcheck, go vet, and gosec on source code
+    cmds:
+      - misspell -i mosquitto .
+      - staticcheck ./...
+      - go vet ./...
+      - gosec -quiet ./...
+
+  coordinator:
+    desc: Compile and run a coordinator
+    ignore_error: true # Skip failure message on receiving exit signal.
+    cmds:
+      - go run {{.COORDINATOR_GO}} {{.CLI_ARGS}}
+
+  worker:
+    desc: Compile and run workers
+    ignore_error: true # Skip failure message on receiving exit signal.
+    cmds:
+      - go run {{.WORKER_GO}} {{.CLI_ARGS}}
+
+  bin:
+    desc: Build platform-specific binaries for worker and coordinator
+    vars:
+      DIST_DIR: dist
+      LDFLAGS: -s -w
+    cmds:
+      - GOOS=windows GOARCH=amd64 go build -ldflags="{{.LDFLAGS}}" -o {{.DIST_DIR}}/coordinator_amd64.exe {{.COORDINATOR_GO}}
+      - GOOS=windows GOARCH=arm64 go build -ldflags="{{.LDFLAGS}}" -o {{.DIST_DIR}}/coordinator_arm64.exe {{.COORDINATOR_GO}}
+      - GOOS=linux GOARCH=amd64 go build -ldflags="{{.LDFLAGS}}" -o {{.DIST_DIR}}/coordinator_linux_amd64 {{.COORDINATOR_GO}}
+      - GOOS=linux GOARCH=arm64 go build -ldflags="{{.LDFLAGS}}" -o {{.DIST_DIR}}/coordinator_linux_arm64 {{.COORDINATOR_GO}}
+      - GOOS=darwin GOARCH=amd64 go build -ldflags="{{.LDFLAGS}}" -o {{.DIST_DIR}}/coordinator_darwin_amd64 {{.COORDINATOR_GO}}
+      - GOOS=darwin GOARCH=arm64 go build -ldflags="{{.LDFLAGS}}" -o {{.DIST_DIR}}/coordinator_darwin_arm64 {{.COORDINATOR_GO}}
+      - GOOS=windows GOARCH=amd64 go build -ldflags="{{.LDFLAGS}}" -o {{.DIST_DIR}}/worker_amd64.exe {{.WORKER_GO}}
+      - GOOS=windows GOARCH=arm64 go build -ldflags="{{.LDFLAGS}}" -o {{.DIST_DIR}}/worker_arm64.exe {{.WORKER_GO}}
+      - GOOS=linux GOARCH=amd64 go build -ldflags="{{.LDFLAGS}}" -o {{.DIST_DIR}}/worker_linux_amd64 {{.WORKER_GO}}
+      - GOOS=linux GOARCH=arm64 go build -ldflags="{{.LDFLAGS}}" -o {{.DIST_DIR}}/worker_linux_arm64 {{.WORKER_GO}}
+      - GOOS=darwin GOARCH=amd64 go build -ldflags="{{.LDFLAGS}}" -o {{.DIST_DIR}}/worker_darwin_amd64 {{.WORKER_GO}}
+      - GOOS=darwin GOARCH=arm64 go build -ldflags="{{.LDFLAGS}}" -o {{.DIST_DIR}}/worker_darwin_arm64 {{.WORKER_GO}}
